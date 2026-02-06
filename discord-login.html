@@ -1,60 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Login with Discord</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-  background: #0b0b0f;
-  color: white;
-  font-family: Segoe UI, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-.box {
-  background: #14141a;
-  padding: 40px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 0 25px rgba(88,101,242,.4);
-}
-button {
-  background: #5865F2;
-  border: none;
-  padding: 14px 30px;
-  font-size: 16px;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-}
-button:hover {
-  opacity: .9;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Login with Discord</title>
+  <style>
+    body {
+      background: #0b1220;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    button {
+      background: #5865F2;
+      color: white;
+      border: none;
+      padding: 16px 26px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
 </head>
 <body>
 
-<div class="box">
-  <h2>Atomic Vault</h2>
-  <p>Login with Discord to continue</p>
-  <button onclick="login()">Login with Discord</button>
-</div>
+<button onclick="login()">Login with Discord</button>
 
 <script>
-const CLIENT_ID = "1469287342002012230";
-const REDIRECT_URI = encodeURIComponent("https://discord.com/oauth2/authorize?client_id=1469287342002012230&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord%2Fcallback&scope=identify+email");
-const SCOPE = "identify email";
-
 function login() {
+  const clientId = "1469287342002012230";
+  const redirect = "https://BOTMAKER-CMD.github.io/atomicauth/discord-callback.html";
+  const scope = "identify+email";
+
   const url =
-    `https://discord.com/oauth2/authorize` +
-    `?client_id=${CLIENT_ID}` +
-    `&response_type=token` +
-    `&scope=${encodeURIComponent(SCOPE)}` +
-    `&redirect_uri=${REDIRECT_URI}`;
+    "https://discord.com/api/oauth2/authorize" +
+    "?client_id=" + clientId +
+    "&redirect_uri=" + encodeURIComponent(redirect) +
+    "&response_type=token" +
+    "&scope=" + scope;
 
   window.location.href = url;
 }
