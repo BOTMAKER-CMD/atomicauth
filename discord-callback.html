@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Logging in...</title>
 </head>
-<body style="background:#0b1220;color:white;font-family:Arial;text-align:center;padding-top:100px">
+<body style="background:#0b1220;color:white;font-family:Arial;text-align:center;padding-top:100px;">
+  <h2>Logging you in...</h2>
 
-<h2>Logging you in...</h2>
+  <script>
+    const hash = new URLSearchParams(window.location.hash.substring(1));
+    const token = hash.get("access_token");
 
-<script>
-const hash = new URLSearchParams(window.location.hash.substring(1));
-const token = hash.get("access_token");
-
-if (!token) {
-  document.body.innerHTML = "<h2>Login failed</h2>";
-} else {
-  fetch("https://discord.com/api/users/@me", {
-    headers: { Authorization: "Bearer " + token }
-  })
-  .then(res => res.json())
-  .then(user => {
-    localStorage.setItem("discordUser", JSON.stringify(user));
-    document.body.innerHTML = `<h2>Welcome, ${user.username}#${user.discriminator}</h2>`;
-  });
-}
-</script>
-
+    if (!token) {
+      document.body.innerHTML = "<h2>Login failed</h2>";
+    } else {
+      fetch("https://discord.com/api/users/@me", {
+        headers: { Authorization: "Bearer " + token }
+      })
+        .then(res => res.json())
+        .then(user => {
+          localStorage.setItem("discordUser", JSON.stringify(user));
+          document.body.innerHTML = `<h2>Welcome, ${user.username}#${user.discriminator}</h2>`;
+          // You can redirect or send this info back to your app now
+        })
+        .catch(() => {
+          document.body.innerHTML = "<h2>Failed to fetch user info</h2>";
+        });
+    }
+  </script>
 </body>
 </html>
